@@ -5,6 +5,8 @@ ENV DEBIAN_FRONTEND noninteractive
 # built-in packages
 RUN apt-get update \
     && apt-get install -y --no-install-recommends software-properties-common curl \
+    && sh -c "echo 'deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main restricted universe multiverse'" \
+    && sh -c '. /etc/lsb-release && echo "deb http://mirrors.ustc.edu.cn/ros/ubuntu/ $DISTRIB_CODENAME main" > /etc/apt/sources.list.d/ros-latest.list' \
     && sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /' >> /etc/apt/sources.list.d/arc-theme.list" \
     && curl -SL http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key | apt-key add - \
     && add-apt-repository ppa:fcwu-tw/ppa \
@@ -35,10 +37,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # setup keys
-RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+RUN apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116 \
+&&  apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
 # setup sources.list
-RUN echo "deb http://packages.ros.org/ros/ubuntu xenial main" > /etc/apt/sources.list.d/ros-latest.list
+RUN sh -c '. /etc/lsb-release && echo "deb http://mirrors.ustc.edu.cn/ros/ubuntu/ xenial main" > /etc/apt/sources.list.d/ros-latest.list' 
 
 # install bootstrap tools
 RUN apt-get update && apt-get install --no-install-recommends -y \
@@ -62,6 +65,20 @@ RUN apt-get update && apt-get install -y \
     ros-kinetic-desktop-full \
     #              A
     #              +--- full desktop \
+    ros-kinetic-controller-manager \
+    ros-kinetic-move-base \
+    ros-kinetic-map-server \
+    ros-kinetic-amcl \
+    ros-kinetic-gmapping \
+    ros-kinetic-dwa-local-planner \
+    libmrpt-dev mrpt-apps \
+    ros-kinetic-mrpt-bridge \
+    ros-kinetic-slam-karto \
+    ros-kinetic-hector-mapping \
+    ros-kinetic-geographic-msgs \
+    ros-kinetic-joy \
+    ros-kinetic-ackermann-msgs \
+    ros-kinetic-global-planner \
     && rm -rf /var/lib/apt/lists/*
 
 # setup entrypoint
@@ -87,7 +104,7 @@ ADD image /
 RUN pip install setuptools wheel && pip install -r /usr/lib/web/requirements.txt
 
 RUN cp /usr/share/applications/terminator.desktop /root/Desktop
-RUN echo "source /opt/ros/kinetic/setup.bash" >> /root/.bashrc
+RUN echo "source ./devel/setup.bash" >> /root/.bashrc
 
 EXPOSE 80
 WORKDIR /root
