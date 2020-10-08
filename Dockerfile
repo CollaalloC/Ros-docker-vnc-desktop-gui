@@ -104,7 +104,8 @@ ADD image /
 RUN pip install setuptools wheel && pip install -r /usr/lib/web/requirements.txt
 
 RUN cp /usr/share/applications/terminator.desktop /root/Desktop
-RUN echo "source ./devel/setup.bash" >> /root/.bashrc
+RUN echo "source /opt/ros/kinetic/setup.bash" >> /root/.bashrc \
+ && echo "source ./devel/setup.bash" >> /root/.bashrc
 
 EXPOSE 80
 WORKDIR /root
