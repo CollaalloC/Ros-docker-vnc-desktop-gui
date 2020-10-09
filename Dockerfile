@@ -93,6 +93,7 @@ RUN apt-get update && apt-get install -y \
     gedit \
     okular \
     vim \
+    tree \
     && rm -rf /var/lib/apt/lists/*
 
 # tini for subreap
