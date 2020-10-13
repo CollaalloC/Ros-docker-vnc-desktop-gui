@@ -79,6 +79,7 @@ RUN apt-get update && apt-get install -y \
     ros-kinetic-joy \
     ros-kinetic-ackermann-msgs \
     ros-kinetic-global-planner \
+    ros-kinetic-gazebo-ros-control \
     && rm -rf /var/lib/apt/lists/*
 
 # setup entrypoint
