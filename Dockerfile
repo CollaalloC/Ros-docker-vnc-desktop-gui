@@ -80,7 +80,7 @@ RUN apt-get update && apt-get install -y \
     ros-kinetic-geographic-msgs \
     ros-kinetic-joy \
     ros-kinetic-ackermann-msgs \
-    ros-kinetic-global-planner \
+    ros-kinetic-global-planner ros-kinetic-teb-local-planner \
     
     && rm -rf /var/lib/apt/lists/*
 
