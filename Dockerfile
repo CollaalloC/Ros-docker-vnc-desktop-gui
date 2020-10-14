@@ -65,9 +65,11 @@ RUN apt-get update && apt-get install -y \
     ros-kinetic-desktop-full \
     #              A
     #              +--- full desktop \
-    ros-kinetic-controller-manager \
-    ros-kinetic-move-base \
-    ros-kinetic-map-server \
+    ros-kinetic-controller-manager ros-kinetic-effort-controllers \
+    ros-kinetic-joint-state-controller ros-kinetic-gazebo-ros-control \
+    ros-kinetic-gazebo-ros-pkgs \
+    ros-kinetic-move-base ros-kinetic-driver-base \
+    ros-kinetic-map-server ros-kinetic-rtabmap-ros \
     ros-kinetic-amcl \
     ros-kinetic-gmapping \
     ros-kinetic-dwa-local-planner \
@@ -79,13 +81,14 @@ RUN apt-get update && apt-get install -y \
     ros-kinetic-joy \
     ros-kinetic-ackermann-msgs \
     ros-kinetic-global-planner \
-    ros-kinetic-gazebo-ros-pkgs ros-kinetic-gazebo-ros-control \
+    
     && rm -rf /var/lib/apt/lists/*
 
 # setup entrypoint
 # COPY ./ros_entrypoint.sh /
 
-
+#add gazebo-models frome github https://github.com/osrf/gazebo_models.git
+RUN mkdir -p /root/.gazebo/models && git clone https://github.com/osrf/gazebo_models.git "/root/.gazebo/models"
 # =================================
 
 # user tools
