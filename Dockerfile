@@ -88,10 +88,7 @@ RUN apt-get update && apt-get install -y \
 # COPY ./ros_entrypoint.sh /
 
 #add gazebo-models frome github https://github.com/osrf/gazebo_models.git
-RUN mkdir -p /root/.gazebo/models && cd /root/.gazebo/models \
-    && wget http://file.ncnynl.com/ros/gazebo_models.txt \
-    && wget -i gazebo_models.txt \
-    && ls model.tar.g* | xargs -n1 tar xzvf
+#RUN mkdir -p /root/.gazebo/models && git clone https://github.com/osrf/gazebo_models.git "/root/.gazebo/models"
 # =================================
 
 # user tools
