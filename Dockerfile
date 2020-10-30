@@ -88,7 +88,7 @@ RUN apt-get update && apt-get install -y \
 # COPY ./ros_entrypoint.sh /
 
 #add gazebo-models frome gitee https://gitee.com/cenruping/gazebo_models.git
-RUN mkdir -p /root/.gazebo/models && git clone https://gitee.com/cenruping/gazebo_models.git "/root/.gazebo/models"
+#RUN mkdir -p /root/.gazebo/models && git clone https://gitee.com/cenruping/gazebo_models.git "/root/.gazebo/models"
 # =================================
 
 # user tools
